@@ -1,1 +1,31 @@
-API 명세서일정 (Schedule)기능MethodURLRequestResponse상태코드일정 생성POST/schedulesParam, 요청 body등록 정보201 Created전체 조회GET/schedules-목록200 OK단건 조회GET/schedules/{scheduleId}PathVariable단건 정보200 OK일정 수정PUT/schedules/{scheduleId}PathVariable, 요청 body수정 정보200 OK일정 삭제DELETE/schedules/{scheduleId}PathVariable-204 No Content유저 (User)기능MethodURLRequestResponse상태코드회원가입POST/users요청 body등록 정보201 Created전체 조회GET/users-목록200 OK단건 조회GET/users/{userId}PathVariable단건 정보200 OK유저 수정PUT/users/{userId}PathVariable, 요청 body수정 정보200 OK유저 삭제DELETE/users/{userId}PathVariable-
+# API 명세서 (API Specification)
+
+## 일정 (Schedule) API
+
+```text
++-----------+--------+-----------------------+------------------------+-----------+----------------+
+|   기능    | Method |          URL          |        Request         | Response  |    상태코드    |
++-----------+--------+-----------------------+------------------------+-----------+----------------+
+| 일정 생성 | POST   | /schedules            | Param, 요청 body       | 등록 정보 | 201 Created    |
+| 전체 조회 | GET    | /schedules            | -                      | 목록      | 200 OK         |
+| 단건 조회 | GET    | /schedules/{id}       | PathVariable           | 단건 정보 | 200 OK         |
+| 일정 수정 | PUT    | /schedules/{id}       | PathVariable, 요청 body| 수정 정보 | 200 OK         |
+| 일정 삭제 | DELETE | /schedules/{id}       | PathVariable           | -         | 204 No Content |
++-----------+--------+-----------------------+------------------------+-----------+----------------+
+```
+
+---
+
+## 유저 (User) API
+
+```text
++-----------+--------+-----------------------+------------------------+-----------+----------------+
+|   기능    | Method |          URL          |        Request         | Response  |    상태코드    |
++-----------+--------+-----------------------+------------------------+-----------+----------------+
+| 회원가입  | POST   | /users                | 요청 body              | 등록 정보 | 201 Created    |
+| 전체 조회 | GET    | /users                | -                      | 목록      | 200 OK         |
+| 단건 조회 | GET    | /users/{id}           | PathVariable           | 단건 정보 | 200 OK         |
+| 유저 수정 | PUT    | /users/{id}           | PathVariable, 요청 body| 수정 정보 | 200 OK         |
+| 유저 삭제 | DELETE | /users/{id}           | PathVariable           | -         | 204 No Content |
++-----------+--------+-----------------------+------------------------+-----------+----------------+
+```
