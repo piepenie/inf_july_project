@@ -20,11 +20,11 @@
 | 유저 수정 | PUT | /users/{userId} | PathVariable, 요청 body | 수정 정보 | 200 OK |
 | 유저 삭제 | DELETE | /users/{userId} | PathVariable | - | 204 No Content |
 
-## 📐 ERD (테이블 구조)
+## ERD
 
 ### 테이블 관계
 
-* `users` 1 : N `schedules` — 유저 한 명은 여러 일정을 작성할 수 있다
+* `users` 1 : N `schedules` — 유저 한 명은 여러 일정을 작성할 수 있다 (단방향/지연 로딩)
 
 ---
 
@@ -33,19 +33,19 @@
 | 컬럼 | 타입 | 제약조건 | 설명 |
 | :--- | :--- | :--- | :--- |
 | id | BIGINT | PK, AUTO_INCREMENT | 유저 고유 식별자 |
-| username | VARCHAR(10) | NOT NULL | 유저명 |
-| email | VARCHAR(255) | NOT NULL, UNIQUE | 이메일 |
+| username | VARCHAR(20) | NOT NULL | 유저 이름 (최대 20자) |
+| email | VARCHAR(255) | NOT NULL, UNIQUE | 이메일 (중복 불가) |
 | password | VARCHAR(255) | NOT NULL | 비밀번호 |
-| created_at | DATETIME | NOT NULL | 작성일 (JPA Auditing) |
-| modified_at | DATETIME | NOT NULL | 수정일 (JPA Auditing) |
+| created_at | DATETIME | NOT NULL | 작성일 (BaseEntity) |
+| modified_at | DATETIME | NOT NULL | 수정일 (BaseEntity) |
 
 ### schedules (일정)
 
 | 컬럼 | 타입 | 제약조건 | 설명 |
 | :--- | :--- | :--- | :--- |
 | id | BIGINT | PK, AUTO_INCREMENT | 일정 고유 식별자 |
-| title | VARCHAR(255) | NOT NULL | 할일 제목 |
-| content | TEXT | NOT NULL | 할일 내용 |
-| user_id | BIGINT | FK -> users.id, NOT NULL | 작성 유저 |
-| created_at | DATETIME | NOT NULL | 작성일 (JPA Auditing) |
-| modified_at | DATETIME | NOT NULL | 수정일 (JPA Auditing) |
+| title | VARCHAR(255) | - | 할일 제목 |
+| contents | VARCHAR(255) | - | 할일 내용 |
+| user_id | BIGINT | FK -> users.id | 작성 유저 |
+| created_at | DATETIME | NOT NULL | 작성일 (BaseEntity) |
+| modified_at | DATETIME | NOT NULL | 수정일 (BaseEntity) |
