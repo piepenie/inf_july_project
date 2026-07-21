@@ -1,5 +1,6 @@
 package org.example.pj.user.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.pj.user.dto.*;
 import org.example.pj.user.service.UserService;
@@ -17,7 +18,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<CreateUserResponse> create(@RequestBody CreateUserRequest request){
+    public ResponseEntity<CreateUserResponse> create(@Valid @RequestBody CreateUserRequest request){
         CreateUserResponse result = userService.save(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
@@ -37,7 +38,7 @@ public class UserController {
     @PutMapping("/{userId}")
     public ResponseEntity<UpdateUserResponse> update(
             @PathVariable Long userId,
-            @RequestBody UpdateUserRequest request
+            @Valid @RequestBody UpdateUserRequest request
 
     ) {
         UpdateUserResponse result = userService.update(userId, request);

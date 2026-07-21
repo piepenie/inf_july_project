@@ -2,6 +2,7 @@ package org.example.pj.schedule.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.pj.global.entity.BaseEntity;
@@ -23,8 +24,8 @@ public class Schedule extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Schedule(Long id, String title, String contents, User user) {
-        this.id = id;
+    @Builder
+    public Schedule(String title, String contents, User user) {
         this.title = title;
         this.contents = contents;
         this.user = user;

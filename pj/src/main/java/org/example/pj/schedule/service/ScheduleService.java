@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.example.pj.schedule.dto.*;
 import org.example.pj.schedule.entity.Schedule;
 import org.example.pj.schedule.repository.ScheduleRepository;
+import org.example.pj.user.entity.User;
+import org.example.pj.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,23 +17,28 @@ import java.util.List;
 public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
+    private final UserRepository userRepository;
 
     // 저장용
     @Transactional
-    public CreateScheduleResponse save(CreateScheduleRequest request){
-        Schedule schedule = new Schedule(
+    public CreateScheduleResponse save(CreateScheduleRequest request, Long userId){
 
-                request.getTitle(),
-                request.getContents()
-        );
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 유저입니다."));
 
-        Schedule saveSchecdule = scheduleRepository.save(schedule);
+        Schedule schedule = Schedule.builder()
+                .title(request.getTitle())
+                .contents(request.getContents())
+                .user(user)
+                .build();
+
+        Schedule savedSchedule = scheduleRepository.save(schedule);
         return new CreateScheduleResponse(
-                saveSchecdule.getId(),
-                saveSchecdule.getTitle(),
-                saveSchecdule.getContents(),
-                saveSchecdule.getCreatedAt(),
-                saveSchecdule.getModifiedAt()
+                savedSchedule.getId(),
+                savedSchedule.getTitle(),
+                savedSchedule.getContents(),
+                savedSchedule.getCreatedAt(),
+                savedSchedule.getModifiedAt()
         );
     }
 

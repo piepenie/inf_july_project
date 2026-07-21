@@ -1,5 +1,6 @@
 package org.example.pj.schedule.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.pj.schedule.dto.*;
 import org.example.pj.schedule.service.ScheduleService;
@@ -17,8 +18,10 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
     @PostMapping
-    public ResponseEntity<CreateScheduleResponse> create(@RequestBody CreateScheduleRequest request){
-        CreateScheduleResponse result = scheduleService.save(request);
+    public ResponseEntity<CreateScheduleResponse> create(
+            @RequestParam Long userId,
+            @Valid @RequestBody CreateScheduleRequest request){
+        CreateScheduleResponse result = scheduleService.save(request, userId);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
@@ -37,7 +40,7 @@ public class ScheduleController {
     @PutMapping("/{scheduleId}")
     public ResponseEntity<UpdateScheduleResponse> update(
             @PathVariable Long scheduleId,
-            @RequestBody UpdateScheduleRequest request
+            @Valid @RequestBody UpdateScheduleRequest request
 
     ) {
         UpdateScheduleResponse result = scheduleService.update(scheduleId, request);
