@@ -20,6 +20,7 @@ public class ScheduleService {
     @Transactional
     public CreateScheduleResponse save(CreateScheduleRequest request){
         Schedule schedule = new Schedule(
+
                 request.getTitle(),
                 request.getContents()
         );

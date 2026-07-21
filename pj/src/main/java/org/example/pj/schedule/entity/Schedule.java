@@ -5,10 +5,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.pj.global.entity.BaseEntity;
+import org.example.pj.user.entity.User;
 
 @Entity
 @Getter
-@Table(name = "schedlue")
+@Table(name = "schedules")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Schedule extends BaseEntity {
 
@@ -18,9 +19,15 @@ public class Schedule extends BaseEntity {
     private String title;
     private String contents;
 
-    public Schedule(String title, String contents) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public Schedule(Long id, String title, String contents, User user) {
+        this.id = id;
         this.title = title;
         this.contents = contents;
+        this.user = user;
     }
 
     public void update(String title, String contents) {
