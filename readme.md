@@ -19,3 +19,26 @@
 | 단건 조회 | GET | /users/{userId} | PathVariable | 단건 정보 | 200 OK |
 | 유저 수정 | PUT | /users/{userId} | PathVariable, 요청 body | 수정 정보 | 200 OK |
 | 유저 삭제 | DELETE | /users/{userId} | PathVariable | - | 204 No Content |
+
+## ERD 
+
+```mermaid
+erDiagram
+    USER {
+        BIGINT id PK "유저 식별자 (Auto Increment)"
+        VARCHAR username "유저 이름"
+        VARCHAR email "이메일"
+        DATETIME created_at "생성일시"
+        DATETIME updated_at "수정일시"
+    }
+
+    SCHEDULE {
+        BIGINT id PK "일정 식별자 (Auto Increment)"
+        BIGINT user_id FK "작성자 식별자"
+        VARCHAR title "할 일 제목"
+        TEXT content "할 일 내용"
+        DATETIME created_at "생성일시"
+        DATETIME updated_at "수정일시"
+    }
+
+    USER ||--o{ SCHEDULE : "1:N (한 유저는 여러 일정을 가짐)"
